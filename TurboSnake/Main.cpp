@@ -6,8 +6,8 @@
 
 
 #define GAME_VERSION "1.0"
-#define DEFAULT_WIDTH 500
-#define DEFAULT_HEIGHT 800
+#define DEFAULT_WIDTH 880
+#define DEFAULT_HEIGHT 500
 #define GAME_SPEED 700
 
 const sf::Time tick_time = sf::milliseconds(GAME_SPEED); // Time of a tick
@@ -114,8 +114,8 @@ int main(int argv, char** argc)
 					break;
 				case sf::Event::Resized:
 					set_title(window, event.size.height, event.size.width);
-					if (event.size.width != event.size.height / 16 * 10)	// Auto resize to keep 16:10 aspect ratio
-						window.setSize({ event.size.height / 16 * 10, event.size.height });
+					if (event.size.width != event.size.height / 9 * 16)	// Auto resize to keep 16:9 aspect ratio
+						window.setSize({ event.size.height / 9 * 16, event.size.height });
 				case sf::Event::KeyPressed:			// Handle User input for block moving
 					handle_key(event.key.code, game);
 				default:

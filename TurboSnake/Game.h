@@ -12,12 +12,10 @@
 class game
 {
 private:
+	
 	game_grid<GRID_ROWS, GRID_COLS> grid_;
 	sf::Font& font_;
 	sf::RenderWindow& window_;
-
-	/// \brief Get a game grid field size in pixels
-	float field() const;
 public:
 	explicit game(sf::Font& font, sf::RenderWindow& window);
 	~game();
@@ -27,6 +25,8 @@ public:
 	void tick();
 	/// \brief Update and Redraw the buffered game render area
 	void update() const;
+	/// \brief Get a game grid field size in pixels
+	float field() const;
 
 	/// \brief Pause or unpause the game
 	bool paused = false;

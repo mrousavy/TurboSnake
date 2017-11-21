@@ -21,3 +21,12 @@ enum class action
 	right,	// Steer the Snake to the right (R-Arr/D)
 	boost	// Speed-up the snake			(Space)
 };
+
+/// \brief A direction the snake can face
+enum class direction
+{
+	up,
+	right,
+	left,
+	down
+};
