@@ -4,6 +4,7 @@
 struct point
 {
 	int x, y;
+	point() : x(0), y(0) {}
 	point(const int x, const int y) : x(x), y(y) {}
 };
 
@@ -11,6 +12,7 @@ struct point
 struct pointf
 {
 	float x, y;
+	pointf() : x(0), y(0) {}
 	pointf(const float x, const float y) : x(x), y(y) {}
 };
 

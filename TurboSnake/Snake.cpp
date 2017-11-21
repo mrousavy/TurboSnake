@@ -2,7 +2,7 @@
 
 
 
-snake::snake(game& game, const size_t length = START_LENGTH)
+snake::snake(game& game, const size_t length)
 	: game_(game), buffer(length), snake_direction()
 {
 	buffer.push_back({ 5,3 });
@@ -15,7 +15,7 @@ snake::~snake()
 {
 }
 
-void snake::move_single(point& point, const direction direction) const
+void snake::move_single(pointf& point, const direction direction) const
 {
 	switch (direction)
 	{
@@ -39,7 +39,7 @@ void snake::move()
 {
 	if (grow_one_)
 	{
-		const point& last = buffer.back(); // The last element (Snake's tail)
+		const pointf& last = buffer.back(); // The last element (Snake's tail)
 		buffer.push_back(last);
 		grow_one_ = false;
 	}
@@ -50,8 +50,8 @@ void snake::move()
 	// Loop from tail to element before head
 	for(int i = 0; i < buffer.size() - 1; i++)
 	{
-		point& current = buffer.at(i);
-		point& next = buffer.at(i + 1);
+		pointf& current = buffer.at(i);
+		pointf& next = buffer.at(i + 1);
 
 		direction target_direction = direction::right;
 		if (next.x > current.x)
