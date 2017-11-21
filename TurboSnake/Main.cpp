@@ -6,7 +6,8 @@
 
 
 #define GAME_VERSION "1.0"
-
+#define DEFAULT_WIDTH 500
+#define DEFAULT_HEIGHT 800
 #define GAME_SPEED 700
 
 const sf::Time tick_time = sf::milliseconds(GAME_SPEED); // Time of a tick

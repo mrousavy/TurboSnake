@@ -5,14 +5,14 @@
 #include <SFML/Graphics/Font.hpp>
 
 
-#define DEFAULT_WIDTH 500
-#define DEFAULT_HEIGHT 800
+#define DEFAULT_ROWS 10
+#define DEFAULT_COLS 30
 
 
 class game
 {
 private:
-	game_grid<DEFAULT_WIDTH, DEFAULT_HEIGHT> grid_;
+	game_grid<DEFAULT_ROWS, DEFAULT_COLS> grid_;
 	sf::Font& font_;
 	sf::RenderWindow& window_;
 public:
