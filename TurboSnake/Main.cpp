@@ -1,10 +1,10 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Config.hpp>
+#include "Game.h"
+#include "Structures.h"
 
 
-#define DEFAULT_WIDTH 500
-#define DEFAULT_HEIGHT 800
 #define GAME_VERSION "1.0"
 
 #define GAME_SPEED 700
@@ -62,13 +62,9 @@ void handle_key(const sf::Keyboard::Key key, game& game)
 		case sf::Keyboard::Key::D:
 			game.input(action::right);
 			break;
-		case sf::Keyboard::Key::Up:
-		case sf::Keyboard::Key::W:
-			game.input(action::rotate);
-			break;
-		case sf::Keyboard::Key::Down:
-		case sf::Keyboard::Key::S:
-			game.input(action::down);
+		case sf::Keyboard::Key::Space:
+		case sf::Keyboard::Key::LShift:
+			game.input(action::boost);
 			break;
 		case sf::Keyboard::Key::Escape:
 			game.is_paused() ? game.resume() : game.pause(); // Toggle game pause state

@@ -29,5 +29,8 @@
     <ClInclude Include="GameGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Structures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

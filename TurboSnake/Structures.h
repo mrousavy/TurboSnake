@@ -13,3 +13,11 @@ struct pointf
 	float x, y;
 	pointf(const float x, const float y) : x(x), y(y) {}
 };
+
+/// \brief An action that can happen in the game
+enum class action
+{
+	left,	// Steer the Snake to the left  (L-Arr/A)
+	right,	// Steer the Snake to the right (R-Arr/D)
+	boost	// Speed-up the snake			(Space)
+};
