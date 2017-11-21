@@ -67,7 +67,7 @@ void handle_key(const sf::Keyboard::Key key, game& game)
 			game.input(action::boost);
 			break;
 		case sf::Keyboard::Key::Escape:
-			game.is_paused() ? game.resume() : game.pause(); // Toggle game pause state
+			game.paused = !game.paused; // Toggle game pause state
 		default: break;
 	}
 }
@@ -106,10 +106,10 @@ int main(int argv, char** argc)
 					thread.terminate();
 					break;
 				case sf::Event::LostFocus:			// Handle User input for pausing/resuming
-					game.pause();
+					game.paused = true;
 					break;
 				case sf::Event::GainedFocus:		// Handle User input for pausing/resuming
-					game.resume();
+					game.paused = false;
 					break;
 				case sf::Event::Resized:
 					set_title(window, event.size.height, event.size.width);
