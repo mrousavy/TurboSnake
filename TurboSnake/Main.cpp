@@ -132,6 +132,7 @@ int main(int argv, char** argc)
 		}
 
 		game.update(); // Finally, let the game handle this frame update and draw all blocks
+		window.display();
 	}
 
 	return 0;

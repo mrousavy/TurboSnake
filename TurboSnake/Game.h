@@ -5,7 +5,7 @@
 #include <SFML/Graphics/Font.hpp>
 
 
-#define GRID_ROWS 10
+#define GRID_ROWS 30
 #define GRID_COLS 30
 
 
@@ -15,12 +15,12 @@ private:
 	
 	game_grid<GRID_ROWS, GRID_COLS> grid_;
 	sf::Font& font_;
-	sf::RenderWindow& window_;
+	sf::RenderTarget& r_target_;
 public:
-	explicit game(sf::Font& font, sf::RenderWindow& window);
+	explicit game(sf::Font& font, sf::RenderTarget& render_target);
 	~game();
 	/// \brief Input the given action to the snake
-	void input(action action);
+	void input(action action) const;
 	/// \brief Perform a game tick/move the snake forwards
 	void tick();
 	/// \brief Update and Redraw the buffered game render area

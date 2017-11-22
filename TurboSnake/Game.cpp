@@ -8,9 +8,10 @@ float game::field() const
 	return width / GRID_ROWS;
 }
 
-game::game(sf::Font& font, sf::RenderWindow& window)
-	: window_(window), font_(font)
+game::game(sf::Font& font, sf::RenderTarget& render_target)
+	: font_(font), r_target_(render_target)
 {
+	snake_ = new snake();
 }
 
 
