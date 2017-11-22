@@ -8,8 +8,11 @@
 #define GAME_VERSION "1.0"
 #define DEFAULT_WIDTH 500
 #define DEFAULT_HEIGHT 500
-#define DEFAULT_GAME_SPEED 250
 
+#define DEFAULT_GAME_SPEED 250
+#define FOOD_MULTIPLIER 2
+
+bool wait_next = false;							// Wait for next tick until handle event again
 
 /// \brief Set the window's title to "TurboSnake - HxW"
 void set_title(sf::RenderWindow& window, const int height, const int width)
@@ -36,7 +39,6 @@ void load_icon(sf::RenderWindow& window)
 	//window.setIcon(10, 10, pixels);
 }
 
-
 /// \brief The actual game loop (tick) of Snake
 void game_loop(game* game)
 {
@@ -45,11 +47,13 @@ void game_loop(game* game)
 	while (true)
 	{
 		game->tick();
+		wait_next = false;
 
 		sleep(tick_time);
+
+		tick_time = sf::milliseconds(DEFAULT_GAME_SPEED - game->ate() * FOOD_MULTIPLIER);
 	}
 }
-
 
 /// \brief Handle user key input
 void handle_key(const sf::Keyboard::Key key, game& game)
@@ -82,11 +86,9 @@ void handle_key(const sf::Keyboard::Key key, game& game)
 	}
 }
 
-
-/// \brief Actual main game loop updating the window
-int main(int argv, char** argc)
+/// \brief Actual game loop, returns whether to restart the game
+bool loop()
 {
-	srand(static_cast<unsigned>(time(nullptr)));
 	sf::RenderWindow window(sf::VideoMode(DEFAULT_WIDTH, DEFAULT_HEIGHT), "Loading..");
 	window.setFramerateLimit(60);
 
@@ -100,6 +102,7 @@ int main(int argv, char** argc)
 	set_title(window, DEFAULT_HEIGHT, DEFAULT_WIDTH);
 	print_info(window);
 	load_icon(window);
+	bool restart = false;
 
 	sf::Thread thread(&game_loop, &game);			// Launch a parellel worker which ticks every 700ms
 	thread.launch();
@@ -126,7 +129,16 @@ int main(int argv, char** argc)
 					if (event.size.width != event.size.height)	// Auto resize to keep 16:9 aspect ratio
 						window.setSize({ event.size.height, event.size.height });
 				case sf::Event::KeyPressed:			// Handle User input for block moving
-					handle_key(event.key.code, game);
+					if (event.key.code == sf::Keyboard::Key::R)	// Restart
+					{
+						window.close();
+						thread.terminate();
+						restart = true;
+					}
+
+					if (!wait_next)
+						handle_key(event.key.code, game);
+					wait_next = true;
 				default:
 					break;
 			}
@@ -136,5 +148,21 @@ int main(int argv, char** argc)
 		window.display();
 	}
 
-	return 0;
+	return restart;
+}
+
+
+
+/// \brief Actual main game loop updating the window
+int main(int argv, char** argc)
+{
+	srand(static_cast<unsigned>(time(nullptr)));
+
+	while(true)
+	{
+		const bool retry = loop();
+
+		if (!retry)
+			return 0;
+	}
 }
