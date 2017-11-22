@@ -1,12 +1,8 @@
 #include "Game.h"
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 
-float game::field() const
-{
-	const int width = window_.getViewport(window_.getView()).width;
-	return width / GRID_ROWS;
-}
 
 game::game(sf::Font& font, sf::RenderTarget& render_target)
 	: font_(font), r_target_(render_target)
@@ -17,6 +13,18 @@ game::game(sf::Font& font, sf::RenderTarget& render_target)
 
 game::~game()
 {
+	delete snake_;
+}
+
+float game::field_w() const
+{
+	const int width = r_target_.getViewport(r_target_.getView()).width;
+	return width / GRID_COLS;
+}
+float game::field_h() const
+{
+	const int height = r_target_.getViewport(r_target_.getView()).height;
+	return height / GRID_ROWS;
 }
 
 void game::input(action action)
@@ -26,6 +34,7 @@ void game::input(action action)
 
 void game::tick()
 {
+	snake_->move();
 }
 
 void game::update() const
