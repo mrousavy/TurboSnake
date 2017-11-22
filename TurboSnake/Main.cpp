@@ -122,8 +122,8 @@ int main(int argv, char** argc)
 					break;
 				case sf::Event::Resized:
 					set_title(window, event.size.height, event.size.width);
-					if (event.size.width != event.size.height / 9 * 16)	// Auto resize to keep 16:9 aspect ratio
-						window.setSize({ event.size.height / 9 * 16, event.size.height });
+					if (event.size.width != event.size.height)	// Auto resize to keep 16:9 aspect ratio
+						window.setSize({ event.size.height, event.size.height });
 				case sf::Event::KeyPressed:			// Handle User input for block moving
 					handle_key(event.key.code, game);
 				default:

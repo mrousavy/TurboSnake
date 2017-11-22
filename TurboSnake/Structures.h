@@ -20,7 +20,9 @@ struct pointf
 enum class action
 {
 	left,	// Steer the Snake to the left  (L-Arr/A)
+	up,		// Steer the Snake upwards		(U-Arr/W)
 	right,	// Steer the Snake to the right (R-Arr/D)
+	down,	// Steer the Snake downwards	(D-Arr/S)
 	boost	// Speed-up the snake			(Space)
 };
 
