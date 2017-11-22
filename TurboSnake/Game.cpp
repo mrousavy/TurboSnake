@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-
+#include <SFML/Graphics/CircleShape.hpp>
 
 
 game::game(sf::Font& font, sf::RenderTarget& render_target)
@@ -65,8 +65,11 @@ void game::input(const action action) const
 
 void game::tick()
 {
+	if (paused) return;
+
 	snake_->move();
 
+	// Food eat logic
 	point& head = snake_->buffer.at(0);
 	if(head == food_)
 	{
@@ -74,6 +77,17 @@ void game::tick()
 		snake_->grow();
 		food_.x = rand() % GRID_COLS;
 		food_.y = rand() % GRID_ROWS;
+	}
+
+	// Out of border logic
+	for(const auto item : snake_->buffer)
+	{
+		if(item.x > GRID_COLS || item.x < 0 ||
+		   item.y > GRID_ROWS || item.y < 0)
+		{
+			paused = true;
+			// Game over
+		}
 	}
 }
 
@@ -100,14 +114,15 @@ void game::update() const
 	{
 		sf::RectangleShape rectangle({ size_w, size_h });
 		rectangle.setPosition(p.x * size_w, p.y * size_h);
-		if (p == snake_->buffer.at(0)) rectangle.setFillColor(sf::Color::Red);
+		if (p == snake_->buffer.at(0)) rectangle.setFillColor(sf::Color(160, 160, 160));
 		r_target_.draw(rectangle);
 	}
 	// Draw food
 	{
-		sf::RectangleShape rectangle({ size_w, size_h });
-		rectangle.setPosition(food_.x * size_w, food_.y * size_h);
-		r_target_.draw(rectangle);
+		sf::CircleShape circle(size_w / 2, size_w);
+		circle.setPosition(food_.x * size_w, food_.y * size_h);
+		circle.setFillColor(sf::Color::Green);
+		r_target_.draw(circle);
 	}
 
 
