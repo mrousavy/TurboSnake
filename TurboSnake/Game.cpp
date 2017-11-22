@@ -67,7 +67,7 @@ void game::tick()
 {
 	snake_->move();
 
-	point& head = snake_->buffer.back();
+	point& head = snake_->buffer.at(0);
 	if(head == food_)
 	{
 		ate_++;

@@ -15,7 +15,7 @@ public:
 	~snake();
 	/// \brief The buffer of all snake points, relative to the grid (!= pixels)
 	std::vector<point> buffer;
-	direction snake_direction = direction::right;
+	direction snake_direction;
 
 	/// \brief Move the snake in the current direction
 	void move();

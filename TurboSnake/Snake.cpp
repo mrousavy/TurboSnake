@@ -3,12 +3,14 @@
 
 
 snake::snake(const size_t length)
-	: buffer(), snake_direction()
+	: buffer(), snake_direction(direction::right)
 {
-	for (int i = 3; i < length + 3; i++)
-	{
-		buffer.push_back({ i,3 });
-	}
+	buffer.push_back({ 8,3 });
+	buffer.push_back({ 7,3 });
+	buffer.push_back({ 6,3 });
+	buffer.push_back({ 5,3 });
+	buffer.push_back({ 4,3 });
+	buffer.push_back({ 3,3 });
 }
 
 
@@ -45,24 +47,30 @@ void snake::move()
 		grow_one_ = false;
 	}
 
-	// Move head
-	move_single(buffer.at(0), snake_direction);
 
 	// Loop from element before head to tail
-	for (int i = 1; i < buffer.size(); i++)
+	for (int i = buffer.size() - 1; i > -1; i--)
 	{
-		point& current = buffer.at(i);
-		point& next = buffer.at(i - 1);
+		if (i == 0)
+		{
+			// Move head
+			move_single(buffer.at(0), snake_direction);
+		}
+		else
+		{
+			point& current = buffer.at(i);
+			point& next = buffer.at(i - 1);
 
-		if (next.x > current.x)
-			move_single(buffer.at(i), direction::right);
-		else if (next.x < current.x)
-			move_single(buffer.at(i), direction::left);
-		else if (next.y > current.y)
-			move_single(buffer.at(i), direction::down);
-		else if (next.y < current.y)
-			move_single(buffer.at(i), direction::up);
+			if (next.x > current.x)
+				move_single(buffer.at(i), direction::right);
+			if (next.x < current.x)
+				move_single(buffer.at(i), direction::left);
+			if (next.y > current.y)
+				move_single(buffer.at(i), direction::down);
+			if (next.y < current.y)
+				move_single(buffer.at(i), direction::up);
 
+		}
 	}
 }
 
