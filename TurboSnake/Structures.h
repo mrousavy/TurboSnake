@@ -6,6 +6,15 @@ struct point
 	int x, y;
 	point() : x(0), y(0) {}
 	point(const int x, const int y) : x(x), y(y) {}
+
+	bool operator==(const point other) const
+	{
+		return x == other.x && y == other.y;
+	}
+	bool operator!=(const point other) const
+	{
+		return x != other.x && y != other.y;
+	}
 };
 
 /// \brief A floating point point in a coordinate system
@@ -14,6 +23,15 @@ struct pointf
 	float x, y;
 	pointf() : x(0), y(0) {}
 	pointf(const float x, const float y) : x(x), y(y) {}
+
+	bool operator==(const point other) const
+	{
+		return x == other.x && y == other.y;
+	}
+	bool operator!=(const point other) const
+	{
+		return x != other.x && y != other.y;
+	}
 };
 
 /// \brief An action that can happen in the game
