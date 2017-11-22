@@ -6,9 +6,9 @@
 
 
 #define GAME_VERSION "1.0"
-#define DEFAULT_WIDTH 880
+#define DEFAULT_WIDTH 500
 #define DEFAULT_HEIGHT 500
-#define GAME_SPEED 700
+#define GAME_SPEED 300
 
 const sf::Time tick_time = sf::milliseconds(GAME_SPEED); // Time of a tick
 
@@ -59,9 +59,17 @@ void handle_key(const sf::Keyboard::Key key, game& game)
 		case sf::Keyboard::Key::A:
 			game.input(action::left);
 			break;
+		case sf::Keyboard::Key::Up:
+		case sf::Keyboard::Key::W:
+			game.input(action::up);
+			break;
 		case sf::Keyboard::Key::Right:
 		case sf::Keyboard::Key::D:
 			game.input(action::right);
+			break;
+		case sf::Keyboard::Key::Down:
+		case sf::Keyboard::Key::S:
+			game.input(action::down);
 			break;
 		case sf::Keyboard::Key::Space:
 		case sf::Keyboard::Key::LShift:
