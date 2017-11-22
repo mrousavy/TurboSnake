@@ -27,9 +27,34 @@ float game::field_h() const
 	return height / GRID_ROWS;
 }
 
-void game::input(action action)
+direction game::direction() const
 {
+	return snake_->snake_direction;
+}
 
+void game::input(const action action) const
+{
+	switch (action)
+	{
+		case action::left:
+			if (snake_->snake_direction != direction::right)
+				snake_->snake_direction = direction::left;
+			break;
+		case action::up:
+			if (snake_->snake_direction != direction::down)
+				snake_->snake_direction = direction::up;
+			break;
+		case action::right:
+			if (snake_->snake_direction != direction::left)
+				snake_->snake_direction = direction::right;
+			break;
+		case action::down:
+			if (snake_->snake_direction != direction::up)
+				snake_->snake_direction = direction::down;
+			break;
+		case action::boost:
+			snake_->snake_direction = direction::down;
+	}
 }
 
 void game::tick()
