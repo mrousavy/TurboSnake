@@ -8,9 +8,8 @@
 #define GAME_VERSION "1.0"
 #define DEFAULT_WIDTH 500
 #define DEFAULT_HEIGHT 500
-#define GAME_SPEED 300
+#define DEFAULT_GAME_SPEED 250
 
-const sf::Time tick_time = sf::milliseconds(GAME_SPEED); // Time of a tick
 
 /// \brief Set the window's title to "TurboSnake - HxW"
 void set_title(sf::RenderWindow& window, const int height, const int width)
@@ -41,10 +40,12 @@ void load_icon(sf::RenderWindow& window)
 /// \brief The actual game loop (tick) of Snake
 void game_loop(game* game)
 {
+	sf::Time tick_time = sf::milliseconds(DEFAULT_GAME_SPEED); // Time of a tick
 
 	while (true)
 	{
 		game->tick();
+
 		sleep(tick_time);
 	}
 }

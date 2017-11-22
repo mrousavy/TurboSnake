@@ -5,7 +5,8 @@
 
 
 game::game(sf::Font& font, sf::RenderTarget& render_target)
-	: font_(font), r_target_(render_target)
+	: font_(font), r_target_(render_target),
+	ate_(0), food_(rand() % GRID_COLS, rand() % GRID_ROWS)
 {
 	snake_ = new snake();
 }
@@ -57,9 +58,14 @@ void game::input(const action action) const
 	}
 }
 
-void game::tick()
+void game::tick() const
 {
 	snake_->move();
+}
+
+int game::ate() const
+{
+	return ate_;
 }
 
 void game::update() const
@@ -80,12 +86,17 @@ void game::update() const
 	const float size_w = field_w();
 	const float size_h = field_h();
 
-	// TODO: Draw snake
-
+	// Draw Snake
 	for (const point& p : snake_->buffer)
 	{
 		sf::RectangleShape rectangle({ size_w, size_h });
 		rectangle.setPosition(p.x * size_w, p.y * size_h);
+		r_target_.draw(rectangle);
+	}
+	// Draw food
+	{
+		sf::RectangleShape rectangle({ size_w, size_h });
+		rectangle.setPosition(food_.x * size_w, food_.y * size_h);
 		r_target_.draw(rectangle);
 	}
 
