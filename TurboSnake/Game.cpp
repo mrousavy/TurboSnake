@@ -19,12 +19,12 @@ game::~game()
 
 float game::field_w() const
 {
-	const float width = r_target_.getViewport(r_target_.getView()).width;
+	const float width = r_target_.getSize().x;//r_target_.getViewport(r_target_.getView()).width;
 	return width / GRID_COLS;
 }
 float game::field_h() const
 {
-	const float height = r_target_.getViewport(r_target_.getView()).height;
+	const float height = r_target_.getSize().y;//r_target_.getViewport(r_target_.getView()).height;
 	return height / GRID_ROWS;
 }
 
