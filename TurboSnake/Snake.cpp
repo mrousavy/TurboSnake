@@ -8,8 +8,6 @@ snake::snake(const size_t length)
 	for (int i = 3; i < length + 3; i++)
 	{
 		buffer.push_back({ i,3 });
-		buffer.push_back({ i,3 });
-		buffer.push_back({ i,3 });
 	}
 }
 
@@ -48,13 +46,13 @@ void snake::move()
 	}
 
 	// Move head
-	move_single(buffer.back(), snake_direction);
+	move_single(buffer.at(0), snake_direction);
 
-	// Loop from tail to element before head
-	for (int i = 0; i < buffer.size() - 1; i++)
+	// Loop from element before head to tail
+	for (int i = 1; i < buffer.size(); i++)
 	{
 		point& current = buffer.at(i);
-		point& next = buffer.at(i + 1);
+		point& next = buffer.at(i - 1);
 
 		if (next.x > current.x)
 			move_single(buffer.at(i), direction::right);

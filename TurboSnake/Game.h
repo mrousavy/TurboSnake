@@ -18,15 +18,15 @@ private:
 	sf::RenderTarget& r_target_;
 	
 	snake* snake_;
-	int ate_;	// Count of eaten food items
 	point food_;	// A food item
+	unsigned ate_;	// Count of eaten food items
 public:
 	explicit game(sf::Font& font, sf::RenderTarget& render_target);
 	~game();
 	/// \brief Input the given action to the snake
 	void input(action action) const;
 	/// \brief Perform a game tick/move the snake forwards
-	void tick() const;
+	void tick();
 	/// \brief Update and Redraw the buffered game render area
 	void update() const;
 	/// \brief Get a game grid field width-size in pixels
@@ -36,7 +36,7 @@ public:
 	/// \brief Get the direction the snake is facing
 	direction direction() const;
 	/// \brief Get the number of items the snake already ate
-	int ate() const;
+	unsigned ate() const;
 
 	/// \brief Pause or unpause the game
 	bool paused = false;
