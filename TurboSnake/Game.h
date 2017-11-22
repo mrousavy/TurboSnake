@@ -3,6 +3,7 @@
 #include "GameGrid.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include "Snake.h"
 
 
 #define GRID_ROWS 30
@@ -12,10 +13,10 @@
 class game
 {
 private:
-	
 	game_grid<GRID_ROWS, GRID_COLS> grid_;
 	sf::Font& font_;
 	sf::RenderTarget& r_target_;
+	snake* snake_;
 public:
 	explicit game(sf::Font& font, sf::RenderTarget& render_target);
 	~game();
@@ -25,8 +26,12 @@ public:
 	void tick();
 	/// \brief Update and Redraw the buffered game render area
 	void update() const;
-	/// \brief Get a game grid field size in pixels
-	float field() const;
+	/// \brief Get a game grid field width-size in pixels
+	float field_w() const;
+	/// \brief Get a game grid field height-size in pixels
+	float field_h() const;
+	/// \brief Get the direction the snake is facing
+	direction direction() const;
 
 	/// \brief Pause or unpause the game
 	bool paused = false;
