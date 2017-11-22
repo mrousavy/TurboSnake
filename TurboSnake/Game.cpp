@@ -64,8 +64,8 @@ void game::tick()
 
 void game::update() const
 {
-	window_.clear(sf::Color::Black);
-	const sf::IntRect view = window_.getViewport(window_.getView());
+	r_target_.clear(sf::Color::Black);
+	const sf::IntRect view = r_target_.getViewport(r_target_.getView());
 
 	if (paused)
 	{
@@ -74,11 +74,44 @@ void game::update() const
 		text.setFillColor(sf::Color::Red);
 		text.setOrigin(200, text.getCharacterSize() / 2);
 		text.setPosition(view.width / 2, view.height / 10);
-		window_.draw(text);
+		r_target_.draw(text);
 	}
 
+	const float size_w = field_w();
+	const float size_h = field_h();
+
 	// TODO: Draw snake
+
+	for (const point& p : snake_->buffer)
+	{
+		sf::RectangleShape rectangle({ size_w, size_h });
+		rectangle.setPosition(p.x * size_w, p.y * size_h);
+		r_target_.draw(rectangle);
+	}
+
+
+	// Draw horizontal lines for grid
+	for (int r = 0; r < GRID_ROWS; r++)
+	{
+		sf::Vertex h_line[] =
+		{
+			sf::Vertex(sf::Vector2f(r * size_h, 0)),
+			sf::Vertex(sf::Vector2f(r * size_h, GRID_COLS * size_w))
+		};
+		r_target_.draw(h_line, 2, sf::Lines);
+	}
+	// Draw vertical lines for grid
+	for (int c = 0; c < GRID_COLS; c++)
+	{
+		sf::Vertex v_line[] =
+		{
+			sf::Vertex(sf::Vector2f(0, c * size_h)),
+			sf::Vertex(sf::Vector2f(GRID_ROWS * size_h, c * size_h))
+		};
+
+		r_target_.draw(v_line, 2, sf::Lines);
+	}
+
 	// TODO: Draw score
 
-	window_.display();
 }
