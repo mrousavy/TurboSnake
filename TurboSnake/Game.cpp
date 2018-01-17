@@ -19,11 +19,13 @@ game::~game()
 
 float game::field_w() const
 {
+	return 16;
 	const float width = r_target_.getSize().x;//r_target_.getViewport(r_target_.getView()).width;
 	return width / GRID_COLS;
 }
 float game::field_h() const
 {
+	return 16;
 	const float height = r_target_.getSize().y;//r_target_.getViewport(r_target_.getView()).height;
 	return height / GRID_ROWS;
 }
@@ -142,7 +144,7 @@ void game::update() const
 		sf::Vertex v_line[] =
 		{
 			sf::Vertex(sf::Vector2f(0, c * size_h)),
-			sf::Vertex(sf::Vector2f(GRID_ROWS * size_h, c * size_h))
+			sf::Vertex(sf::Vector2f(GRID_ROWS * size_h, c * size_w))
 		};
 
 		r_target_.draw(v_line, 2, sf::Lines);
